@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forever 💜</title>
+
+<style>
+/* BASE */
+body{
+  margin:0;
+  width:100vw;
+  height:100vh;
+  background:#6a0dad;
+  font-family:'Segoe UI', sans-serif;
+  color:white;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* HIDE */
+.hidden{
+  display:none !important;
+}
+
+/* BUTTON */
+button{
+  padding:15px 30px;
+  font-size:20px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  background:#ff4d6d;
+  color:white;
+}
+
+/* PAGES */
+#page1,#page2,#page3,#finalMessage{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+/* HEARTS */
+#hearts span{
+  position:fixed;
+  top:-10%;
+  animation:fall linear infinite;
+  color:red;
+  font-size:25px;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  to{top:110%; opacity:0;}
+}
+
+/* CRACKER */
+.cracker{
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:red;
+  animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+  to{transform:scale(10); opacity:0;}
+}
+
+/* TEDDY */
+#teddy{
+  width:200px;
+  height:200px;
+  background:#ffb6c1;
+  border-radius:30px;
+  box-shadow:0 20px 40px rgba(0,0,0,.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:1s;
+}
+
+#teddy:hover{
+  transform:rotateY(180deg);
+}
+
+/* VIDEO */
+#videos{
+  position:absolute;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.4);
+}
+
+.video-box{
+  background:black;
+  padding:15px;
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(255,255,255,.5);
+}
+
+#videoPlayer{
+  max-width:70vw;
+  max-height:70vh;
+  border-radius:15px;
+}
+
+/* MESSAGE */
+#paper{
+  background:white;
+  color:black;
+  width:70%;
+  max-width:700px;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 0 20px rgba(0,0,0,.5);
+}
+
+/* ROSES */
+.rose{
+  position:fixed;
+  top:-10%;
+  font-size:30px;
+  animation:fall 6s linear infinite;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<!-- MUSIC -->
+<audio id="bgm" src="s3.mp3" loop></audio>
+
+<!-- PAGE 1 -->
+<div id="page1">
+  <h1>✨ A Magical Question ✨</h1>
+  <button onclick="startLove()">Click Here</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="hidden">
+  <h1>Will You Be My Forever? 💍</h1>
+  <button onclick="yesClicked()">YES 💜</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="hidden">
+  <h2>I knew you will click YES 💖</h2>
+  <p>Because you love me 💕</p>
+  <div id="teddy" onclick="playVideos()">
+    🧸<br>Click me to cherish the good moments
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div id="videos">
+  <div class="video-box">
+    <video id="videoPlayer" controls></video>
+  </div>
+</div>
+
+<!-- FINAL MESSAGE -->
+<div id="finalMessage" class="hidden">
+  <div id="paper">
+<pre>
+என் உயிர் தங்கையே,
+
+எங்கள் வாழ்வில் வந்த மிகப்பெரிய பொக்கிஷம் நீ.
+நீ என்றும் கலங்கக்கூடாது.
+நெடும் நேரம் பேச முடியாவிட்டாலும்
+என் மனதில் என்றும் நீ நிறைந்திருப்பாய்.
+
+நீ உன் வாழ்க்கையில் எப்போதும்
+சந்தோஷம் மட்டுமே பார்க்க வேண்டும்.
+நீ சந்தோசமாக இருப்பதை பார்த்து
+என் மனதில் சந்தோஷம் நிறைந்திருக்க வேண்டும்.
+
+என்றும் ஆனந்தமாக இருக்க வேண்டும்
+என் உயிர் தங்கையே.
+இதுவே என் பரிசு உனக்கு.
+</pre>
+  </div>
+</div>
+
+<h1 id="loveText" class="hidden">🌹 I Love You Forever 🌹</h1>
+
+<script>
+const bgm=document.getElementById("bgm");
+bgm.volume=0.4;
+
+function startLove(){
+  bgm.play();
+  blast();
+  hearts();
+  show("page2","page1");
+}
+
+function yesClicked(){
+  show("page3","page2");
+}
+
+function show(showId, hideId){
+  document.getElementById(hideId).classList.add("hidden");
+  document.getElementById(showId).classList.remove("hidden");
+}
+
+function blast(){
+  for(let i=0;i<30;i++){
+    let c=document.createElement("div");
+    c.className="cracker";
+    c.style.left=Math.random()*100+"%";
+    c.style.top=Math.random()*100+"%";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1000);
+  }
+}
+
+function hearts(){
+  for(let i=0;i<30;i++){
+    let h=document.createElement("span");
+    h.innerHTML="❤";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=3+Math.random()*3+"s";
+    document.getElementById("hearts").appendChild(h);
+  }
+}
+
+const videos=["v1.mp4"];
+let idx=0;
+
+function playVideos(){
+  document.getElementById("page3").classList.add("hidden");
+  const v=document.getElementById("videos");
+  v.style.display="flex";
+
+  const vp=document.getElementById("videoPlayer");
+  vp.src=videos[idx];
+  vp.play();
+  petals();
+
+  vp.onended=()=>{
+    idx++;
+    if(idx<videos.length){
+      vp.src=videos[idx];
+      vp.play();
+    }else{
+      v.style.display="none";
+      document.getElementById("finalMessage").classList.remove("hidden");
+      document.getElementById("loveText").classList.remove("hidden");
+      petals();
+    }
+  };
+}
+
+function petals(){
+  setInterval(()=>{
+    let r=document.createElement("div");
+    r.className="rose";
+    r.innerHTML="🌸";
+    r.style.left=Math.random()*100+"%";
+    document.body.appendChild(r);
+    setTimeout(()=>r.remove(),6000);
+  },350);
+}
+</script>
+
+</body>
+</html>
